@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
 module.exports = {
   entry: {
     index: [path.join(__dirname, 'src/index.js')],
@@ -11,7 +13,6 @@ module.exports = {
     path: __dirname,
     publicPath: '/react-relative-portal',
   },
-  watch: true,
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
@@ -20,10 +21,10 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        // NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(NODE_ENV),
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin(),
+    NODE_ENV === 'development' ? function() {} : new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin({
       title: 'react-relative-portal examples',

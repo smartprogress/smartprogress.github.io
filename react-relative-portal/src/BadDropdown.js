@@ -1,5 +1,4 @@
 import React from 'react';
-import RelativePortal from 'react-relative-portal';
 
 export default class Hint extends React.Component {
 
@@ -15,7 +14,7 @@ export default class Hint extends React.Component {
   render() {
     const { children, position = 'left' } = this.props;
     const { show } = this.state;
-    const portalProps = position === 'left' ? {} : { right: 0 };
+    const dropdownStyle = position === 'left' ? { left: 0 } : { right: 0 };
 
     return (
       <div style={styles.container}>
@@ -23,18 +22,13 @@ export default class Hint extends React.Component {
           Show content
         </button>
 
-        <RelativePortal
-          component="div"
-          top={5}
-          onOutClick={show ? (() => this.setState({ show: false })) : null}
-          {...portalProps}
-        >
-          {show &&
+        {show &&
+          <div style={{ ...dropdownStyle, ...styles.dropdownW }}>
             <div style={styles.dropdown}>
               {children}
             </div>
-          }
-        </RelativePortal>
+          </div>
+        }
       </div>
     );
   }
@@ -43,9 +37,15 @@ export default class Hint extends React.Component {
 
 const styles = {
   container: {
+    position: 'relative',
     display: 'inline-block',
   },
+  dropdownW: {
+    position: 'absolute',
+    marginTop: 5,
+  },
   dropdown: {
+    width: 120,
     padding: 5,
     backgroundColor: '#FFF',
     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
