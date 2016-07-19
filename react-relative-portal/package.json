@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "react-relative-portal": "file:///Users/sunify/www/react-relative-portal"
+    "react-relative-portal": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
